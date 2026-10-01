@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tugas 3 - Pengelolaan Produk Toko</title>
+</head>
+<body>
+  <h1>Pengelolaan Produk Toko</h1>
+  <pre id="output"></pre>
+
+  <script>
+    // Daftar produk yang dijual di toko
+    const produkToko = [
+      { id: 1, nama: "Laptop", harga: 7000000, stok: 5 },
+      { id: 2, nama: "Mouse", harga: 200000, stok: 10 },
+      { id: 3, nama: "Keyboard", harga: 350000, stok: 7 }
+    ];
+
+    // Elemen halaman tempat daftar produk ditampilkan
+    const output = document.getElementById("output");
+
+    // ID berikutnya yang dipakai untuk produk baru.
+    // Produk awal sudah memakai ID 1, 2, dan 3.
+    let idBerikutnya = 4;
+
+    // Menambahkan produk baru ke dalam array produkToko.
+    // ID baru diambil dari idBerikutnya, lalu counter dinaikkan.
+    function tambahProduk(nama, harga, stok) {
+      produkToko.push({
+        id: idBerikutnya,
+        nama: nama,
+        harga: harga,
+        stok: stok
+      });
+
+      idBerikutnya++;
+    }
+
+    // Menghapus produk dari array produkToko berdasarkan id.
+    function hapusProduk(id) {
+      const index = produkToko.findIndex((produk) => produk.id === id);
+      if (index !== -1) {
+        produkToko.splice(index, 1);
+      }
+    }
+
+    // Menampilkan seluruh isi array produkToko ke halaman.
+    function tampilkanProduk() {
+      const daftar = produkToko.map(
+        (produk) =>
+          `ID: ${produk.id} | Nama: ${produk.nama} | Harga: ${produk.harga.toLocaleString("id-ID")} | Stok: ${produk.stok}`
+      );
+      output.textContent += daftar.join("\n") + "\n";
+    }
+
+    // ---- Contoh penggunaan ketiga fungsi ----
+
+    output.textContent += "1. Daftar produk awal:\n";
+    tampilkanProduk();
+
+    tambahProduk("Monitor", 1500000, 3);
+    output.textContent += "2. Daftar produk setelah menambah Monitor:\n";
+    tampilkanProduk();
+
+    hapusProduk(2);
+    output.textContent += "3. Daftar produk setelah menghapus produk dengan id 2:\n";
+    tampilkanProduk();
+  </script>
+</body>
+</html>
