@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tugas 4 - Sistem Manajemen Transportasi</title>
+</head>
+<body>
+  <h1>Sistem Manajemen Transportasi</h1>
+  <h2>Daftar Pelanggan yang Sedang Menyewa</h2>
+  <pre id="output"></pre>
+
+  <script>
+    // Class Pelanggan menyimpan data pelanggan yang menyewa kendaraan.
+    class Pelanggan {
+      constructor(nama, nomorTelepon, kendaraanDisewa) {
+        this.nama = nama;
+        this.nomorTelepon = nomorTelepon;
+        this.kendaraanDisewa = kendaraanDisewa;
+      }
+
+      // Mencatat kendaraan yang disewa oleh pelanggan.
+      catatPenyewaan(kendaraan) {
+        this.kendaraanDisewa = kendaraan;
+      }
+    }
+
+    // Membuat beberapa object pelanggan.
+    const pelanggan1 = new Pelanggan("Dodi Prayodi", "081234567890", "");
+    const pelanggan2 = new Pelanggan("Andi Saputra", "082345678901", "");
+    const pelanggan3 = new Pelanggan("Budi Santoso", "083456789012", "");
+
+    // Mencatat transaksi penyewaan kendaraan tiap pelanggan.
+    pelanggan1.catatPenyewaan("Toyota Avanza");
+    pelanggan2.catatPenyewaan("Honda Vario");
+    pelanggan3.catatPenyewaan("Mitsubishi L300");
+
+    // Daftar seluruh pelanggan.
+    const daftarPelanggan = [pelanggan1, pelanggan2, pelanggan3];
+
+    // Menampilkan hanya pelanggan yang sedang menyewa kendaraan.
+    const output = document.getElementById("output");
+    const sedangMenyewa = daftarPelanggan.filter(
+      (pelanggan) => pelanggan.kendaraanDisewa !== ""
+    );
+
+    sedangMenyewa.forEach((pelanggan) => {
+      output.textContent +=
+        "Nama: " + pelanggan.nama + "\n" +
+        "Nomor Telepon: " + pelanggan.nomorTelepon + "\n" +
+        "Kendaraan: " + pelanggan.kendaraanDisewa + "\n\n";
+    });
+  </script>
+</body>
+</html>
