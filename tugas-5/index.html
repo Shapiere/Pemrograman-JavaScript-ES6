@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tugas 5 - Manajemen Produk</title>
+</head>
+<body>
+  <h1>Manajemen Produk</h1>
+
+  <div id="daftarProduk"></div>
+
+  <hr>
+
+  <h2>Tambah Produk</h2>
+  <input type="number" id="inputId" placeholder="ID" value="6">
+  <input type="text" id="inputNama" placeholder="Nama" value="Tablet">
+  <input type="number" id="inputHarga" placeholder="Harga" value="4000000">
+  <button id="btnTambah">Tambah Produk</button>
+
+  <h2>Hapus Produk</h2>
+  <input type="number" id="inputHapusId" placeholder="ID yang dihapus" value="2">
+  <button id="btnHapus">Hapus Produk</button>
+
+  <hr>
+
+  <button id="btnTampilkan">Tampilkan Semua Produk</button>
+
+  <script>
+    // Daftar produk awal
+    let produkList = [
+      { id: 1, nama: "Laptop", harga: 12000000 },
+      { id: 2, nama: "Smartphone", harga: 5000000 },
+      { id: 3, nama: "Keyboard", harga: 350000 },
+      { id: 4, nama: "Mouse", harga: 200000 },
+      { id: 5, nama: "Monitor", harga: 1800000 }
+    ];
+
+    // Menambahkan produk baru. Spread operator dipakai untuk
+    // menyusun array baru dari produkList lama ditambah produk baru.
+    function tambahProduk(id, nama, harga) {
+      produkList = [...produkList, { id, nama, harga }];
+    }
+
+    // Menghapus produk berdasarkan ID. Rest parameter dipakai untuk
+    // menampung semua ID yang dikirim ke dalam satu array bernama ids.
+    function hapusProduk(...ids) {
+      produkList = produkList.filter((produk) => !ids.includes(produk.id));
+    }
+
+    // Menampilkan seluruh produk. Destructuring dipakai untuk
+    // mengambil id, nama, dan harga dari setiap object produk.
+    function tampilkanProduk() {
+      const daftar = produkList.map((produk) => {
+        const { id, nama, harga } = produk;
+        return `<li>ID: ${id} | Nama: ${nama} | Harga: Rp ${harga.toLocaleString("id-ID")}</li>`;
+      });
+      document.getElementById("daftarProduk").innerHTML = "<ul>" + daftar.join("") + "</ul>";
+    }
+
+    // Event listener untuk menampilkan produk
+    document.getElementById("btnTampilkan").addEventListener("click", tampilkanProduk);
+
+    // Event listener untuk menambah produk
+    document.getElementById("btnTambah").addEventListener("click", () => {
+      const id = Number(document.getElementById("inputId").value);
+      const nama = document.getElementById("inputNama").value;
+      const harga = Number(document.getElementById("inputHarga").value);
+      tambahProduk(id, nama, harga);
+      tampilkanProduk();
+    });
+
+    // Event listener untuk menghapus produk
+    document.getElementById("btnHapus").addEventListener("click", () => {
+      const id = Number(document.getElementById("inputHapusId").value);
+      hapusProduk(id);
+      tampilkanProduk();
+    });
+
+    // Tampilkan daftar produk awal saat halaman dibuka
+    tampilkanProduk();
+  </script>
+</body>
+</html>
